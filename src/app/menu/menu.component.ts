@@ -21,12 +21,11 @@ export class MenuComponent implements OnInit {
     this.selectedDishDetails = this.storageService.findDishDetail(this.selectedDish.id);
   }
 
-  constructor(private storageService: StorageService) {
-    storageService.findAllDishes()
-      .then(dishes => {this.dishes = dishes; this.selectedDish = this.dishes[0]})
-      .catch(error => console.error(error.message));
-  }
+  constructor(private storageService: StorageService) { }
 
   ngOnInit() {
+    this.storageService.findAllDishes()
+      .then(dishes => {this.dishes = dishes; this.selectedDish = this.dishes[0]})
+      .catch(error => console.error(error.message));
   }
 }
