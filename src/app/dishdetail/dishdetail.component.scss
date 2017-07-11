@@ -1,0 +1,13 @@
+.card-container {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+md-card {
+  width: 35vw;
+  margin: 2vw;
+}
+
+.between-comments-line {
+  width: 80%;
+}

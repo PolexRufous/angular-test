@@ -1,53 +1,31 @@
-import { Component, OnInit } from '@angular/core';
-import { Dish } from '../shared/dish';
+import {Component, OnInit} from '@angular/core';
+import {Dish} from '../shared/dish';
+import {StorageService} from '../shared/services/StorageService';
+import {DishDetail} from "../shared/dish.detail";
 
-const DISHES: Dish[] = [
-  {
-    name: 'Uthappizza',
-    image: '/assets/images/uthappizza.png',
-    category: 'mains',
-    label: 'Hot',
-    price: '4.99',
-    description: 'A unique combination of Indian Uthappam (pancake) and Italian pizza.'
-  },
-  {
-    name: 'Zucchipakoda',
-    image: '/assets/images/zucchipakoda.png',
-    category: 'appetizer',
-    label: '',
-    price: '1.99',
-    description: 'Deep fried Zucchini coated with mildly spiced Chickpea flour batter accompanied with a sweet-tangy tamarind sauce'
-  },
-  {
-    name: 'Vadonut',
-    image: '/assets/images/vadonut.png',
-    category: 'appetizer',
-    label: 'New',
-    price: '1.99',
-    description: 'A quintessential ConFusion experience, is it a vada or is it a donut?'
-  },
-  {
-    name: 'ElaiCheese Cake',
-    image: '/assets/images/elaicheesecake.png',
-    category: 'dessert',
-    label: '',
-    price: '2.99',
-    description: 'A delectable, semi-sweet New York Style Cheese Cake, with Graham cracker crust and spiced with Indian cardamoms'
-  }
-];
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.scss']
+  styleUrls: ['./menu.component.scss'],
+  providers: [StorageService]
 })
 export class MenuComponent implements OnInit {
 
-  dishes: Dish[] = DISHES;
+  dishes: Dish[];
+  selectedDish: Dish;
+  selectedDishDetails: DishDetail;
 
-  selectedDish: Dish = DISHES[0];
+  onSelectDish(dish: Dish): void {
+    this.selectedDish = dish;
+    this.selectedDishDetails = this.storageService.findDishDetail(this.selectedDish.id);
+  }
 
-  constructor() { }
+  constructor(private storageService: StorageService) {
+    storageService.findAllDishes()
+      .then(dishes => {this.dishes = dishes; this.selectedDish = this.dishes[0]})
+      .catch(error => console.error(error.message));
+  }
 
   ngOnInit() {
   }
