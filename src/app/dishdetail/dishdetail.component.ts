@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { DishDetail } from '../shared/dish.detail';
 import {Dish} from '../shared/dish';
-import {StorageService} from '../shared/services/StorageService';
+import {StorageService} from '../shared/services/storage.service';
 
 @Component({
   selector: 'app-dishdetail',

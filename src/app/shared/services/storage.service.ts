@@ -4,6 +4,8 @@ import {Dish} from '../dish';
 
 @Injectable()
 export class StorageService {
+  constructor() {}
+
   findAllDishes(): Promise<Array<Dish>> {
     return Promise.resolve(storage.dishes());
   }

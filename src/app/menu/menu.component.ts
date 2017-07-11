@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Dish} from '../shared/dish';
-import {StorageService} from '../shared/services/StorageService';
-import {DishDetail} from "../shared/dish.detail";
+import {StorageService} from '../shared/services/storage.service';
+import {DishDetail} from '../shared/dish.detail';
 
 
 @Component({
