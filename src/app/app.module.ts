@@ -12,6 +12,7 @@ import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
 import { DishdetailComponent } from './dishdetail/dishdetail.component';
 import { StorageService } from './shared/services/storage.service';
+import { PromotionService } from './shared/services/promotion.service';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
@@ -40,7 +41,7 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
     FlexLayoutModule,
     AppRoutingModule
   ],
-  providers: [StorageService],
+  providers: [StorageService, PromotionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
