@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import storage from '../storage';
 import {Dish} from '../dish';
+import {DishDetail} from "../dish.detail";
 
 @Injectable()
 export class StorageService {
@@ -9,8 +10,8 @@ export class StorageService {
   findAllDishes(): Promise<Array<Dish>> {
     return Promise.resolve(storage.dishes());
   }
-  findDishDetail(dishId: number) {
-    return storage.dishDetail(dishId);
+  findDishDetail(dishId: number): Promise<DishDetail> {
+    return Promise.resolve(storage.dishDetail(dishId));
   }
   getDish(id: number): Promise<Dish> {
     return Promise.resolve(storage.dishes().filter(dish => dish.id === id)[0]);
