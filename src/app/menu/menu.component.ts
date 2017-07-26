@@ -18,7 +18,8 @@ export class MenuComponent implements OnInit {
 
   onSelectDish(dish: Dish): void {
     this.selectedDish = dish;
-    this.selectedDishDetails = this.storageService.findDishDetail(this.selectedDish.id);
+    this.storageService.findDishDetail(this.selectedDish.id)
+      .then(dishDetail => this.selectedDishDetails = dishDetail);
   }
 
   constructor(private storageService: StorageService) { }
