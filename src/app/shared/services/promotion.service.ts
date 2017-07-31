@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Promotion} from '../promotion';
+import { Promotion } from '../promotion';
 import storage from '../storage';
 
 @Injectable()
