@@ -22,6 +22,20 @@ export class ContactComponent implements OnInit {
 
   createForm() {
     this.feedbackForm = this.fb.group({
+      firstname: ['', Validators.required ],
+      lastname: ['', Validators.required ],
+      telnum: [0, Validators.required ],
+      email: ['', Validators.required ],
+      agree: [false, Validators.required ],
+      contacttype: ['None', Validators.required ],
+      message: ['', Validators.required ],
+    });
+  }
+
+  onSubmit() {
+    this.feedback = this.feedbackForm.value;
+    console.log(this.feedback);
+    this.feedbackForm.reset({
       firstname: '',
       lastname: '',
       telnum: 0,
@@ -30,11 +44,6 @@ export class ContactComponent implements OnInit {
       contacttype: 'None',
       message: ''
     });
-  }
-
-  onSubmit() {
-    this.feedback = this.feedbackForm.value;
-    console.log(this.feedback);
-    this.feedbackForm.reset();
+    this.feedbackForm.get('firstname').markAsUntouched();
   }
 }
