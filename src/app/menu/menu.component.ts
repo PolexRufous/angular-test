@@ -22,7 +22,7 @@ export class MenuComponent implements OnInit {
   onSelectDish(dish: Dish): void {
     this.selectedDish = dish;
     this.storageService.findDishDetail(this.selectedDish.id)
-      .then(dishDetail => this.selectedDishDetails = dishDetail);
+      .subscribe(dishDetail => this.selectedDishDetails = dishDetail);
   }
 
   constructor(private storageService: StorageService,
@@ -30,8 +30,7 @@ export class MenuComponent implements OnInit {
 
   ngOnInit() {
     this.storageService.findAllDishes()
-      .then(dishes => {this.dishes = dishes; this.selectedDish = this.dishes[0]})
-      .catch(error => console.error(error.message));
+      .subscribe(dishes => {this.dishes = dishes; this.selectedDish = this.dishes[0]});
     this.leaderService.getLeaders()
       .then(leaders => this.leaders = leaders)
       .catch(error => console.error(error.message));
