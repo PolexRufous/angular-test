@@ -26,4 +26,8 @@ export class StorageService {
   getFeaturedDishes(): Promise<Array<Dish>> {
     return Promise.resolve(storage.dishes().filter(dish => dish.featured));
   }
+
+  getDishesIds(): Observable<Array<number>> {
+    return Observable.of(storage.dishes().map(dish => dish.id)).delay(2000);
+  }
 }

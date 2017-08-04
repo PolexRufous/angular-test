@@ -4,7 +4,8 @@ import { DishDetail } from '../shared/dish.detail';
 import {Dish} from '../shared/dish';
 import { Params, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { StorageService } from '../shared/services/storage.service'
+import { StorageService } from '../shared/services/storage.service';
+import 'rxjs/add/operator/switchMap';
 
 @Component({
   selector: 'app-dishdetail',
@@ -15,14 +16,30 @@ export class DishdetailComponent implements OnInit {
 
   dish: Dish;
   dishDetail: DishDetail;
+  dishesIds: Array<number>;
+  previous: number;
+  next: number;
+
   constructor(private storageService: StorageService,
               private route: ActivatedRoute,
               private location: Location) { }
 
   ngOnInit() {
-    const id = +this.route.snapshot.params['id'];
-    this.storageService.getDish(id).subscribe(dish => this.dish = dish);
-    this.storageService.findDishDetail(id).subscribe(dishDetail => this.dishDetail = dishDetail);
+    this.storageService.getDishesIds().subscribe(
+      (ids: Array<number>) => this.dishesIds = ids
+    );
+    this.route.params
+      .switchMap((params: Params) => this.storageService.getDish(+params['id']))
+      .subscribe(dish => {this.dish = dish; this.setPrevNext(dish.id)});
+    this.route.params
+      .switchMap((params: Params) => this.storageService.findDishDetail(+params['id']))
+      .subscribe(dishDetail => this.dishDetail = dishDetail);
+  }
+
+  setPrevNext(dishId: number) {
+    const index = this.dishesIds.indexOf(dishId);
+    this.previous = this.dishesIds[(this.dishesIds.length + index - 1) % this.dishesIds.length];
+    this.next = this.dishesIds[(this.dishesIds.length + index + 1) % this.dishesIds.length];
   }
 
   goBack(): void {
