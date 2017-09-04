@@ -22,6 +22,9 @@ import {AppRoutingModule} from './app-routing/app-routing.module';
 import {LoginComponent} from './login/login.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {LeadersService} from './shared/services/leaders.service';
+import { baseUrl } from './shared/base.url';
+import {ProcessHTTPMsgService} from './shared/services/process-httpmsg.service';
+
 
 @NgModule({
   declarations: [
@@ -45,7 +48,12 @@ import {LeadersService} from './shared/services/leaders.service';
     AppRoutingModule,
     ReactiveFormsModule
   ],
-  providers: [StorageService, PromotionService, LeadersService],
+  providers: [
+    StorageService,
+    PromotionService,
+    LeadersService,
+    ProcessHTTPMsgService,
+    {provide: 'BaseUrl', useValue: baseUrl}],
   entryComponents: [
     LoginComponent
   ],

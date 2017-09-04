@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input, Inject} from '@angular/core';
 
 import { DishDetail } from '../shared/dish.detail';
 import {Dish} from '../shared/dish';
@@ -22,7 +22,8 @@ export class DishdetailComponent implements OnInit {
 
   constructor(private storageService: StorageService,
               private route: ActivatedRoute,
-              private location: Location) { }
+              private location: Location,
+              @Inject('BaseUrl') private BaseUrl) { }
 
   ngOnInit() {
     this.storageService.getDishesIds().subscribe(

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Inject} from '@angular/core';
 import {Dish} from '../shared/dish';
 import {StorageService} from '../shared/services/storage.service';
 import {DishDetail} from '../shared/dish.detail';
@@ -16,21 +16,19 @@ export class MenuComponent implements OnInit {
 
   dishes: Dish[];
   selectedDish: Dish;
-  selectedDishDetails: DishDetail;
   leaders: Array<Leader>;
 
-  onSelectDish(dish: Dish): void {
-    this.selectedDish = dish;
-    this.storageService.findDishDetail(this.selectedDish.id)
-      .subscribe(dishDetail => this.selectedDishDetails = dishDetail);
-  }
-
   constructor(private storageService: StorageService,
-              private leaderService: LeadersService) { }
+              private leaderService: LeadersService,
+              @Inject('BaseUrl') private BaseUrl) { }
 
   ngOnInit() {
     this.storageService.findAllDishes()
-      .subscribe(dishes => {this.dishes = dishes; this.selectedDish = this.dishes[0]});
+      .subscribe(dishes => {
+        this.dishes = dishes;
+        this.selectedDish = this.dishes[0];
+        dishes.forEach(dish => dish.image = this.BaseUrl + dish.image);
+      });
     this.leaderService.getLeaders()
       .then(leaders => this.leaders = leaders)
       .catch(error => console.error(error.message));
